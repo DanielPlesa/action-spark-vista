@@ -52,35 +52,45 @@ const Auth = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50 p-4">
+    <div className="flex items-center justify-center min-h-screen bg-black text-white p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: animated ? 1 : 0, y: animated ? 0 : 20 }}
         transition={{ duration: 0.5 }}
         className="w-full max-w-md"
       >
-        <Card className="border-none shadow-xl bg-white/95 backdrop-blur-sm">
+        <Card className="border-none shadow-xl bg-black/90 backdrop-blur-sm text-white">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">
+            <CardTitle className="text-2xl font-bold text-center text-white">
               {activeTab === 'login' ? 'Welcome back' : 'Create an account'}
             </CardTitle>
-            <CardDescription className="text-center">
+            <CardDescription className="text-center text-gray-400">
               {activeTab === 'login' 
                 ? 'Enter your credentials to access your account' 
                 : 'Enter your email to create your account'}
             </CardDescription>
           </CardHeader>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-4">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 mb-4 bg-gray-900">
+              <TabsTrigger 
+                value="login" 
+                className="data-[state=active]:bg-gray-800 data-[state=active]:text-white"
+              >
+                Login
+              </TabsTrigger>
+              <TabsTrigger 
+                value="register" 
+                className="data-[state=active]:bg-gray-800 data-[state=active]:text-white"
+              >
+                Register
+              </TabsTrigger>
             </TabsList>
             
             <TabsContent value="login">
               <form onSubmit={handleSubmit}>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-white">Email</Label>
                     <Input 
                       id="email" 
                       type="email" 
@@ -88,10 +98,11 @@ const Auth = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
+                      className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-white">Password</Label>
                     <Input 
                       id="password" 
                       type="password"
@@ -99,13 +110,14 @@ const Auth = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
+                      className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                     />
                   </div>
                 </CardContent>
                 <CardFooter>
                   <Button 
                     type="submit" 
-                    className="w-full"
+                    className="w-full bg-white text-black hover:bg-gray-200"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Signing in...' : 'Sign in'}
@@ -118,7 +130,7 @@ const Auth = () => {
               <form onSubmit={handleSubmit}>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email" className="text-white">Email</Label>
                     <Input 
                       id="email" 
                       type="email" 
@@ -126,10 +138,11 @@ const Auth = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
+                      className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-white">Password</Label>
                     <Input 
                       id="password" 
                       type="password"
@@ -137,13 +150,14 @@ const Auth = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
+                      className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                     />
                   </div>
                 </CardContent>
                 <CardFooter>
                   <Button 
                     type="submit" 
-                    className="w-full"
+                    className="w-full bg-white text-black hover:bg-gray-200"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Creating account...' : 'Create account'}
