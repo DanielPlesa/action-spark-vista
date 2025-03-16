@@ -1,9 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, Menu, X } from 'lucide-react';
+import { PlusCircle, Menu, X, LogOut } from 'lucide-react';
 import { useAnimation } from '@/utils/animations';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface HeaderProps {
   onNewTask: () => void;
@@ -15,6 +16,7 @@ const Header: React.FC<HeaderProps> = ({ onNewTask, toggleSidebar, isSidebarOpen
   const animated = useAnimation(100);
   const isMobile = useIsMobile();
   const [scrolled, setScrolled] = useState(false);
+  const { signOut, user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,15 +50,28 @@ const Header: React.FC<HeaderProps> = ({ onNewTask, toggleSidebar, isSidebarOpen
           Tasks
         </h1>
       </div>
-      <Button 
-        onClick={onNewTask} 
-        className={`transition-all duration-300 hover:shadow-md ${
-          animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-        }`}
-      >
-        <PlusCircle className="mr-2 h-4 w-4" />
-        {!isMobile && 'New Task'}
-      </Button>
+      <div className="flex items-center gap-2">
+        <Button 
+          onClick={onNewTask} 
+          className={`transition-all duration-300 hover:shadow-md ${
+            animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          }`}
+        >
+          <PlusCircle className="mr-2 h-4 w-4" />
+          {!isMobile && 'New Task'}
+        </Button>
+        
+        <Button 
+          variant="outline"
+          onClick={signOut}
+          className={`transition-all duration-300 ${
+            animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          }`}
+        >
+          <LogOut className="h-4 w-4 mr-2" />
+          {!isMobile && 'Sign Out'}
+        </Button>
+      </div>
     </header>
   );
 };

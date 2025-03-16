@@ -10,9 +10,10 @@ import { format } from 'date-fns';
 import { useAnimation } from '@/utils/animations';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
 
 const MainApp = () => {
-  const { tasks, projects, addTask, updateTask, deleteTask } = useTaskContext();
+  const { tasks, projects, addTask, updateTask, deleteTask, loading } = useTaskContext();
   const [selectedProject, setSelectedProject] = useState('inbox');
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editTask, setEditTask] = useState<Task | null>(null);
@@ -73,6 +74,15 @@ const MainApp = () => {
     const project = projects.find(p => p.id === projectId);
     return project?.name || 'Tasks';
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <span className="ml-2">Loading your tasks...</span>
+      </div>
+    );
+  }
 
   return (
     <div className={`min-h-screen w-full flex flex-col transition-all duration-300 ${appReady ? 'opacity-100' : 'opacity-0'}`}>
